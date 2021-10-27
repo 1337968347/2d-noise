@@ -1,8 +1,8 @@
 const canvasEl = document.querySelector("canvas");
 const ctx = canvasEl.getContext("2d");
 
-const makePerlin = (w, h) => {
-  const getPerlinTable = (w, h) => {
+const makeValueNoise = (w, h) => {
+  const getValueTable = (w, h) => {
     const p = new Array(w * w);
     for (let i = 0; i < w; i++) {
       for (let j = 0; j < h; j++) {
@@ -12,7 +12,7 @@ const makePerlin = (w, h) => {
     return p;
   };
 
-  const perlinTable = getPerlinTable(w, h);
+  const valueTable = getValueTable(w, h);
 
   const fade = (t) => {
     return t * t * t * (t * (t * 6 - 15) + 10);
@@ -28,6 +28,7 @@ const makePerlin = (w, h) => {
    * @param {*} v [0,1)
    */
   const getUVPixel = (u, v) => {
+
     const x1 = u * w;
     const y1 = v * h;
     const x2 = ~~x1;
@@ -42,7 +43,7 @@ const makePerlin = (w, h) => {
       [x2 + 1, y2 + 1],
     ].map(([x, y]) => {
       const i = x * w + y;
-      return perlinTable[i] || 0;
+      return valueTable[i] || 0;
     });
     // https://pic4.zhimg.com/80/v2-a54749b9a5f536968344c88f9e09d95b_720w.jpg
     const b = lerp(g1, g2, u1);
@@ -54,10 +55,10 @@ const makePerlin = (w, h) => {
   return { getUVPixel };
 };
 
-const perlinOper = makePerlin(20, 20);
+const perlinOper = makeValueNoise(20, 20);
 
-const w = 512;
-const h = 512;
+const w = 700;
+const h = 700;
 canvasEl.width = w;
 canvasEl.height = h;
 
@@ -66,8 +67,8 @@ for (let i = 0; i < w; i++) {
   for (let j = 0; j < h; j++) {
     const p = perlinOper.getUVPixel(i / w, j / h);
     imageData.data[(i * w + j) * 4 + 0] = 0;
-    imageData.data[(i * w + j) * 4 + 1] = 42;
-    imageData.data[(i * w + j) * 4 + 2] = 0;
+    imageData.data[(i * w + j) * 4 + 1] = 0;
+    imageData.data[(i * w + j) * 4 + 2] = 42;
     imageData.data[(i * w + j) * 4 + 3] = p * 255;
   }
 }
