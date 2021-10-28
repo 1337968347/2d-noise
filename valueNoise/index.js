@@ -59,8 +59,8 @@ const makeValueNoise = (w, h) => {
 
 const perlinOper = makeValueNoise(5, 5);
 
-const w = 800;
-const h = 600;
+const w = 500;
+const h = 500;
 canvasEl.width = w;
 canvasEl.height = h;
 

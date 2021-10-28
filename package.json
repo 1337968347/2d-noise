@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "http-server -o",
+    "depoly": "npm run build && gh-pages -d www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/1337968347/2d-noise#readme",
   "devDependencies": {
-    "http-server": "^14.0.0"
+    "http-server": "^14.0.0",
+    "gh-pages": "^3.2.3"
   }
 }

@@ -114,8 +114,8 @@ const makePerlin = (seed) => {
 
 const perlinOper = makePerlin(Math.random());
 
-const w = 1024;
-const h = 768;
+const w = 500;
+const h = 500;
 canvasEl.width = w;
 canvasEl.height = h;
 
