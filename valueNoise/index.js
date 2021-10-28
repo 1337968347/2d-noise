@@ -30,34 +30,37 @@ const makeValueNoise = (w, h) => {
   const getUVPixel = (u, v) => {
     const x1 = u * w;
     const y1 = v * h;
-    const x2 = ~~x1;
-    const y2 = ~~y1;
-    const u1 = fade(x1 - x2);
-    const v1 = fade(y1 - y2);
+    const xInt = ~~x1;
+    const yInt = ~~y1;
+    const u1 = x1 - xInt;
+    const v1 = y1 - yInt;
 
     const [g1, g2, g3, g4] = [
-      [x2, y2],
-      [x2 + 1, y2],
-      [x2, y2 + 1],
-      [x2 + 1, y2 + 1],
+      [xInt, yInt],
+      [xInt + 1, yInt],
+      [xInt, yInt + 1],
+      [xInt + 1, yInt + 1],
     ].map(([x, y]) => {
       const i = x * w + y;
       return valueTable[i] || 0;
     });
     // https://pic4.zhimg.com/80/v2-a54749b9a5f536968344c88f9e09d95b_720w.jpg
-    const b = lerp(g1, g2, u1);
-    const a = lerp(g3, g4, u1);
-    const p = lerp(b, a, v1);
+
+    const u2 = fade(u1);
+    const v2 = fade(v1);
+    const b = lerp(g1, g2, u2);
+    const a = lerp(g3, g4, u2);
+    const p = lerp(b, a, v2);
     return p;
   };
 
   return { getUVPixel };
 };
 
-const perlinOper = makeValueNoise(10, 10);
+const perlinOper = makeValueNoise(5, 5);
 
-const w = 512;
-const h = 512;
+const w = 800;
+const h = 600;
 canvasEl.width = w;
 canvasEl.height = h;
 
@@ -65,7 +68,7 @@ const imageData = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height);
 for (let i = 0; i < w; i++) {
   for (let j = 0; j < h; j++) {
     const p = perlinOper.getUVPixel(i / w, j / h);
-    imageData.data[(i * w + j) * 4 + 0] = 100;
+    imageData.data[(i * w + j) * 4 + 0] = 111;
     imageData.data[(i * w + j) * 4 + 1] = 0;
     imageData.data[(i * w + j) * 4 + 2] = 42;
     imageData.data[(i * w + j) * 4 + 3] = p * 255;
