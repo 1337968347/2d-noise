@@ -89,8 +89,8 @@ const makePerlin = (seed) => {
    */
   const getUVPixel = (u, v) => {
     // 当前晶格左上角的坐标
-    const xInt = ~~u;
-    const yInt = ~~v;
+    const xInt = Math.floor(u);
+    const yInt = Math.floor(v);
     // 小数部分
     let u1 = u - xInt;
     let v1 = v - yInt;

@@ -19,5 +19,3 @@ for (let i = 0; i < w; i++) {
   }
 }
 ctx.putImageData(imageData, 0, 0);
-
-loop();
