@@ -15,7 +15,7 @@ const makeValueNoise = (w, h) => {
   const valueTable = getValueTable(w, h);
 
   const fade = (t) => {
-    return t * t * (3.0 - 2.0 * t);
+    return t * t * t * (t * (t * 6 - 15) + 10);
   };
 
   const lerp = (u, v, a) => {
@@ -57,7 +57,7 @@ const makeValueNoise = (w, h) => {
   return { getUVPixel };
 };
 
-const perlinOper = makeValueNoise(15, 15);
+const perlinOper = makeValueNoise(10, 10);
 
 const w = 500;
 const h = 500;
@@ -68,10 +68,10 @@ const imageData = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height);
 for (let i = 0; i < w; i++) {
   for (let j = 0; j < h; j++) {
     const p = perlinOper.getUVPixel(i / w, j / h);
-    imageData.data[(i * w + j) * 4 + 0] = 0;
+    imageData.data[(i * w + j) * 4 + 0] = 60;
     imageData.data[(i * w + j) * 4 + 1] = 0;
-    imageData.data[(i * w + j) * 4 + 2] = 0;
-    imageData.data[(i * w + j) * 4 + 3] = (1 - p) * 255;
+    imageData.data[(i * w + j) * 4 + 2] = 20;
+    imageData.data[(i * w + j) * 4 + 3] = p * 255;
   }
 }
 ctx.putImageData(imageData, 0, 0);
