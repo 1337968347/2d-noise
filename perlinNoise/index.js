@@ -122,11 +122,11 @@ canvasEl.height = h;
 const imageData = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height);
 for (let i = 0; i < w; i++) {
   for (let j = 0; j < h; j++) {
-    const p = perlinOper.getUVPixel(i / 100, j / 100);
+    const p = perlinOper.getUVPixel(i / 30, j / 30);
     imageData.data[(i * w + j) * 4 + 0] = 0;
     imageData.data[(i * w + j) * 4 + 1] = 0;
-    imageData.data[(i * w + j) * 4 + 2] = 100;
-    imageData.data[(i * w + j) * 4 + 3] = p * 255;
+    imageData.data[(i * w + j) * 4 + 2] = 0;
+    imageData.data[(i * w + j) * 4 + 3] = (1 - p) * 255;
   }
 }
 ctx.putImageData(imageData, 0, 0);

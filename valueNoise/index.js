@@ -57,7 +57,7 @@ const makeValueNoise = (w, h) => {
   return { getUVPixel };
 };
 
-const perlinOper = makeValueNoise(5, 5);
+const perlinOper = makeValueNoise(15, 15);
 
 const w = 500;
 const h = 500;
@@ -68,10 +68,10 @@ const imageData = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height);
 for (let i = 0; i < w; i++) {
   for (let j = 0; j < h; j++) {
     const p = perlinOper.getUVPixel(i / w, j / h);
-    imageData.data[(i * w + j) * 4 + 0] = 111;
+    imageData.data[(i * w + j) * 4 + 0] = 0;
     imageData.data[(i * w + j) * 4 + 1] = 0;
-    imageData.data[(i * w + j) * 4 + 2] = 42;
-    imageData.data[(i * w + j) * 4 + 3] = p * 255;
+    imageData.data[(i * w + j) * 4 + 2] = 0;
+    imageData.data[(i * w + j) * 4 + 3] = (1 - p) * 255;
   }
 }
 ctx.putImageData(imageData, 0, 0);
