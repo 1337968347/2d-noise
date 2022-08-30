@@ -24,5 +24,8 @@
   "devDependencies": {
     "http-server": "^14.0.0",
     "gh-pages": "^3.2.3"
+  },
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
   }
 }
